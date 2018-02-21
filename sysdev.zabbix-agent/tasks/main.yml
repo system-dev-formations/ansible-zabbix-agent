@@ -7,7 +7,17 @@
         state={{ item.state }}
   with_items:
     - { package: "*" , state: "latest" }
-    - { package: "epel-release , state: "present" }
+    - { package: "epel-release" , state: "present" }
     - { package: "http://repo.zabbix.com/zabbix/3.5/rhel/7/x86_64/zabbix-release-3.5-1.el7.noarch.rpm", state: "present" } 
     - { package: "zabbix-agent" , state: "present" } 
+- name: Set Zabbix Server IP address
+  lineinfile: path=/etc/zabbix/zabbix_agentd.conf
+              regexp="Server=127.0.0.1"
+              line="Server={{ zabbix_server_ip }}
+- name: Set Zabbix Server IP address
+  lineinfile: path=/etc/zabbix/zabbix_agentd.conf
+              regexp="ServerActive=127.0.0.1"
+              line="ServerActive={{ zabbix_server_ip }}
+- name: Start zabbix agent service
+  service: name=zabbix_agent  state=started
 
