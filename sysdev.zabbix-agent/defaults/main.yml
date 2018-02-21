@@ -1,0 +1,2 @@
+---
+zabbix_server_ip: "{{ lookup('env','ZABBIX_SERVER_IP') | default('127.0.0.1',true) }}"
