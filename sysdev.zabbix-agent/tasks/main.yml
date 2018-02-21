@@ -1,7 +1,5 @@
 ---
 # tasks for sysdev.zabbix-agent
-- name: Install require packages
-  become: true
 - name:  Install All packages
   yum:  name={{ item.package }}
         state={{ item.state }}
@@ -13,11 +11,11 @@
 - name: Set Zabbix Server IP address
   lineinfile: path=/etc/zabbix/zabbix_agentd.conf
               regexp="Server=127.0.0.1"
-              line="Server={{ zabbix_server_ip }}
-- name: Set Zabbix Server IP address
+              line="Server={{ zabbix_server_ip }}"
+- name: Set Zabbix ServerActive IP address
   lineinfile: path=/etc/zabbix/zabbix_agentd.conf
               regexp="ServerActive=127.0.0.1"
-              line="ServerActive={{ zabbix_server_ip }}
+              line="ServerActive={{ zabbix_server_ip }}"
 - name: Start zabbix agent service
-  service: name=zabbix_agent  state=started
+  service: name=zabbix-agent  state=started
 
